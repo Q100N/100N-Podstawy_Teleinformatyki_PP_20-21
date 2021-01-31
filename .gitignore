@@ -24,6 +24,7 @@ _UpgradeReport_Files/
 ###############
 bin/
 obj/
+*.Startup.cs
 TestResults/
 ###################
 # Web publish log #
