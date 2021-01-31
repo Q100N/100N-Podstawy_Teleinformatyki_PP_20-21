@@ -27,7 +27,7 @@ namespace DietaApp
         {
             services.AddDbContext<DietaAppDbContext>(options => options.
             UseSqlServer("Server=tcp:dietaappserv.database.windows.net,1433;Initial Catalog=DietaAppDB;Persist Security Info=False;User " +
-            "ID=dietaappserv;Password=u9jN6K9DgBwIBK;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            "ID=dietaappserv;Password=.........;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             services.AddControllersWithViews();
             services.AddTransient<IDishRepository, DishRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
