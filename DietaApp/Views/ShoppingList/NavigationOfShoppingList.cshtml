@@ -1,0 +1,53 @@
+﻿@model List<ShoppingListViewModel>
+
+
+@{
+
+    int i = 1;
+    ViewData["Title"] = "Listy zakupowe";
+}
+<a casp-area="" class="btn btn-secondary" asp-controller="Home" asp-action="Index"> <- Powrót do głównego Menu </a>
+<br />
+<br />
+<h4>Listy Zakupów</h4>
+<hr />
+<a asp-controller="ShoppingList" asp-action="AddShoppingList" class="btn btn-success">Dodaj listę zakupów</a>
+
+<form asp-controller="ShoppingList" asp-action="NavigationOfShoppingList">
+    <input type="text" name="FilterString" />
+    <button type="submit" class="btn btn-success">Filtr</button>
+</form>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shoppingList in Model.OrderBy(i=>i.Name))
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@shoppingList.Name</td>
+                    <td>
+                        <a casp-area="" class="btn btn-success" asp-controller="ShoppingList" asp-action="ListOfDaysInShoppingList" asp-route-shoppingListId="@shoppingList.Id">Wyświetl listę</a>
+                        <a casp-area="" class="btn btn-primary" asp-controller="ShoppingList" asp-action="DaysInSL" asp-route-shoppingListId="@shoppingList.Id">Szczegóły</a>
+                        <a casp-area="" class="btn btn-danger" asp-controller="ShoppingList" asp-action="Delete" asp-route-shoppingListId="@shoppingList.Id">Usuń</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+

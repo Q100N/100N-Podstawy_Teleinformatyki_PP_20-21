@@ -1,0 +1,14 @@
+﻿@model ConfirmationViewModel
+@{ 
+    ViewData["Title"] = "Dieta Application";
+}
+
+<a casp-area="" class="btn btn-secondary" asp-controller="@Model.controler" asp-action="@Model.method"> <- Powrót do listy</a>
+
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Sukces!</h4>
+    <p>
+        Dodano @Model.name
+    </p>
+</div>

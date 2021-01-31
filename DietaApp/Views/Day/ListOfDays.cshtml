@@ -1,0 +1,63 @@
+﻿@*@model 
+
+
+@{ 
+
+    ViewData["Title"] = "Lista zakupów Page";
+}
+
+<a asp-controller="Home" asp-action="Add" class="btn btn-success">Go to Add</a>
+
+<form asp-controller="Home" asp-action="Index">
+    <input type="text" name="FilterString"/>
+    <button type="submit" class="btn btn-success">Filter</button>
+</form>
+   
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    FirstName
+                </th>
+                <th scope="col">
+                    LastName
+                </th>
+                <th scope="col">
+                    PhoneNumber
+                </th>
+                <th scope="col">
+                    WorkYears
+                </th>
+                <th scope="col">
+                    IsAbleToMakePrescriptions
+                </th>
+
+                <th scope="col">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doctor in Model)
+            {
+            <tr>
+                <th scope="row">@doctor.Id</th>
+                <td>@doctor.FirstName</td>
+                <td>@doctor.LastName</td>
+                <td>@doctor.PhoneNumer</td>
+                <td>@doctor.WorkYears</td>
+                <td>@doctor.IsAbleToMakePrescriptions</td>
+                <td>
+                    <a casp-area="" asp-controller="Home" asp-action="View" asp-route-doctorId="@doctor.Id">View</a>
+                    |
+                    <a casp-area="" asp-controller="Home" asp-action="Delete" asp-route-doctorId="@doctor.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>*@

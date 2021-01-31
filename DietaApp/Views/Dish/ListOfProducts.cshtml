@@ -1,0 +1,51 @@
+﻿@model List<DishViewModel>
+
+
+@{
+
+    int i = 1;
+    ViewData["Title"] = "Lista dań";
+}
+<a casp-area="" class="btn btn-secondary" asp-controller="Home" asp-action="Index"> <- Powrót do głównego Menu </a>
+<br />
+<br />
+<h4>Dania</h4>
+<hr />
+<a asp-controller="Dish" asp-action="AddDish" class="btn btn-success">Dodaj danie</a>
+
+<form asp-controller="Dish" asp-action="NavigationOfDishes">
+    <input type="text" name="FilterString" />
+    <button type="submit" class="btn btn-success">Filtr</button>
+</form>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dish in Model.OrderBy(i => i.Name))
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@dish.Name</td>
+                    <td>
+                        <a casp-area="" class="btn btn-primary" asp-controller="Dish" asp-action="ListOfProductsInDish" asp-route-dishId="@dish.Id">Szczegóły</a>
+                        <a casp-area="" class="btn btn-danger" asp-controller="Dish" asp-action="DeleteDish" asp-route-dishId="@dish.Id">Usuń</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

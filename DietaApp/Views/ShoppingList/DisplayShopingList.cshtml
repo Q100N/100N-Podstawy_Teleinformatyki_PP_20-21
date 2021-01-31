@@ -1,0 +1,44 @@
+﻿@model DietaApp.Models.DictionaryViewModel
+
+
+
+@{
+
+    ViewData["Title"] = "Lista posiłków";
+}
+
+
+<p> Lista zakupów nr: jakisTam</p>
+
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th scope="col">
+                    Nazwa
+                </th>
+
+                <th scope="col">
+                    Waga
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.sumWeightProduct)
+            {
+                <tr>
+
+                        <td>@i.Key</td>
+                        <td>@i.Value</td>
+@*                    
+
+                    <td>
+                    </td>*@
+                </tr>
+            }
+
+            </tbody>
+    </table>
+</div>

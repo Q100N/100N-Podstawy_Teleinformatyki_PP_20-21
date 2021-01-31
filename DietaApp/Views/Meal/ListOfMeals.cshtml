@@ -1,0 +1,44 @@
+﻿@model List<MealViewModel>
+
+
+@{
+
+    ViewData["Title"] = "Lista posiłków";
+}
+
+<a asp-controller="Meal" asp-action="Add" class="btn btn-success">Go to Add</a>
+
+<form asp-controller="Meal" asp-action="Index">
+    <input type="text" name="FilterString" />
+    <button type="submit" class="btn btn-success">Filter</button>
+</form>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meal in Model)
+            {
+                <tr>
+                    <th scope="row">@meal.Id</th>
+                    <td>@meal.Name</td>
+
+                    <td>
+                        <a casp-area="" asp-controller="Meal" asp-action="View" asp-route-mealId="@meal.Id">View</a>
+                        |
+                        <a casp-area="" asp-controller="Meal" asp-action="Delete" asp-route-mealId="@meal.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

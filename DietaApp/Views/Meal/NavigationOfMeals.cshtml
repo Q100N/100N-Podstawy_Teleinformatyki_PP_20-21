@@ -1,0 +1,128 @@
+﻿@model MealViewModel
+@{
+    int counter = 1;
+    ViewData["Title"] = "Lista Podsiłków";
+}
+
+
+<a casp-area="" class="btn btn-secondary" asp-controller="Home" asp-action="Index"> <- Powrót do głównego Menu </a>
+<br />
+<br />
+<h4>Posiłki</h4>
+<hr />
+<a asp-controller="Meal" asp-action="AddMeal" class="btn btn-success">Dodaj posiłek</a>
+<form asp-controller="Meal" asp-action="Index">
+    <input type="text" name="FilterString" />
+    <button type="submit" class="btn btn-success">Filtr</button>
+</form>
+
+
+
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+                    kcal
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @for (int i = 0; i < Model.sumKcalInMeal.Count(); i++)
+            {
+                var item = @Model.sumKcalInMeal.ElementAt(i);
+                var j = 0;
+            <tr>
+                <td scope="row">@counter</td>
+                <td>@item.Key</td>
+                <th scope="row">@item.Value</th>
+                <td>
+                    @if (j < 1 && @Model.IdOfMeal.ElementAt(i).Key != null)
+                    {
+                        @for (int g = 0; g < j + 1; g++)
+                        {
+                            var valueItem = @Model.IdOfMeal.ElementAt(i);
+                            //<a casp-area="" class="btn btn-primary" asp-controller="Meal" asp-action="ListOfProductsInMeal" asp-route-mealId=" @valueItem.Value">Szczegóły</a>
+                            <a casp-area="" class="btn btn-primary" asp-controller="Meal" asp-action="ListOfDishesInMeal" asp-route-mealId=" @valueItem.Key">Szczegóły</a>
+                            <a casp-area="" class="btn btn-danger" asp-controller="Meal" asp-action="DeleteMeal" asp-route-mealId="@valueItem.Key">Usuń</a>
+                            g++;
+                        }
+                    }
+                </td>
+
+            </tr>
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+@*@model List<MealViewModel>
+
+
+    @{
+
+        int i = 1;
+        ViewData["Title"] = "Lista posiłków";
+    }
+    <a casp-area="" class="btn btn-secondary" asp-controller="Home" asp-action="Index"> <- Powrót do głównego Menu </a>
+    <br />
+    <br />
+    <h4>Posiłki</h4>
+    <hr />
+    <a asp-controller="Meal" asp-action="AddMeal" class="btn btn-success">Dodaj Posiłek</a>
+
+    <form asp-controller="Meal" asp-action="NavigationOfMeals">
+        <input type="text" name="FilterString" />
+        <button type="submit" class="btn btn-success">Filtr</button>
+    </form>
+
+    <div class="text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Id
+                    </th>
+                    <th scope="col">
+                        Nazwa
+                    </th>
+                    <th scope="col">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var meal in Model.OrderBy(i=>i.Name))
+                {
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@meal.Name</td>
+                        <td>
+                            <a casp-area="" class="btn btn-primary" asp-controller="Meal" asp-action="ListOfDishesInMeal" asp-route-mealId="@meal.Id">Szczegóły</a>
+                            <a casp-area="" class="btn btn-danger" asp-controller="Meal" asp-action="DeleteMeal" asp-route-mealId="@meal.Id">Usuń</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+*@

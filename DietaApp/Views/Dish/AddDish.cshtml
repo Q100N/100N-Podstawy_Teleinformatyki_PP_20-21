@@ -1,0 +1,227 @@
+﻿@model DietaApp.Models.ProductListVM
+@{
+        ViewData["Title"] = "Dodanie posiłku";
+}
+<style>
+    .bold {
+        font-weight: bold !important;
+    }
+
+    #template {
+        margin-top: 10px;
+    }
+
+    .alert {
+        padding: 20px;
+        background-color: red;
+        color: white;
+        display: none;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .closebtn:hover {
+            color: black;
+        }
+</style>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="alert">
+        <span class="closebtn" onclick="">&times;</span>
+        <strong>Błąd! </strong> Podana nazwa dania już istnieje
+    </div>
+    <a casp-area="" class="btn btn-secondary" asp-controller="Dish" asp-action="NavigationOfDishes"> <- Powrót do listy dań</a>
+    <br />
+    <br />
+    <div>
+        Nazwa dania: <br />
+        <input id="dishName" />
+    </div>
+    <div>
+        <a href="#" style="margin-top:29px;"
+           class="btn btn-info add-row" role="button"> <i class="fa fa-plus"></i>&nbsp;Dodaj produkt</a>
+    </div>
+    <br />
+
+    <div id="firstDriver_initialForm">
+        <div class="container">
+            <div class="dynamic-rows">
+                <div class="row" id="template" data-order="0">
+
+                    <div class="row filter">
+                        <br />
+                        <div class="col-md-4">
+                            <select class="product form-control" style="border-color:gray;font-size:13px" asp-items="@Model.Products">
+                                <option selected value="">Wszystkie</option>
+                            </select>
+
+                        </div>
+                        Ilość:
+                        <div class="col-md-2">
+                            <input class="weight" pleceholder="waga" style="width: inherit;" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" style="width: inherit;" class="btn btn-danger delete-row" data-val="0"><i class="fa fa-trash"></i>&nbsp;Usuń </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-success" onclick="AddDish()">Dodaj danie</button>
+
+    </div>
+
+
+
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#ProductId').change(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Dish/GetProducts",
+                datatype: "Json",
+                data: { ProductId: $('#ProductId').val() },
+                success: function (data) {
+                    $('#txtProductRate').html(data);
+                }
+            });
+        });
+    });
+    var i = 0;
+    $('.add-row').click(function () {
+        i = i + 1;
+        var x = $("div.dynamic-rows").children().children();
+        var y = x[0];
+        y.parentElement.classList.add("current");;
+        //var _formTemp = $("#template").clone(true)
+
+        var _formTemp = $(".current").clone(true)
+        y.parentElement.classList.remove("current");
+        _formTemp.removeClass("current");
+        var _targetForm = $(".dynamic-rows")
+
+        _formTemp.attr("data-order", i);
+        //_formTemp.attr("data-order", i);
+
+        _targetForm.append(_formTemp)
+        return false;
+    });
+    $("#saveTemplate").click(function (e) {
+        var $form = $("#frmElements");
+        $.ajax({
+            url: '@Url.Action("PostTemplate", "DynamicElementsLoad")',
+            type: "POST",
+            data: $('#frmElements').serialize(),
+            traditional: true,
+            success: function (result) {
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+    $(document).on("click", ".delete-row", function (e) {
+        e.preventDefault();
+
+        var counter = $("div.dynamic-rows").children().children().length;
+        if (counter > 1) {
+        var parentDiv = $(this).parent().parent();
+        $(parentDiv).remove();
+        var formElements = $("div.dynamic-rows").children();
+
+            for (var elem = 0; elem < formElements.length; elem++) {
+                var childHTMLText = formElements[elem];
+                var orderId = $(childHTMLText).attr("data-order");
+                $(childHTMLText).find("input, select").each(function () {
+                    var elementName = $(this).attr("name");
+                    var elementNameid = $(this).attr("id");
+                    if (elementName != null && elementName != undefined) {
+                        var newName = replaceAll(elementName, orderId, '[' + elem + ']');
+                        $(this).attr("name", newName);
+                    }
+                    if (elementNameid != null && elementNameid != undefined) {
+                        var newId = replaceAll(elementNameid, orderId, '[' + elem + ']');
+                        $(this).attr("id", newId);
+                    }
+                });
+                $(childHTMLText).attr("data-order", '[' + elem + ']')
+            }
+        }
+        return false;
+    });
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+    function replaceAll(str, term, replacement) {
+        return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
+    }
+    function AddDish() {
+        let dishName = $("#dishName").val();
+        let listOfProductsInDish = $(".filter");
+        let products = [];
+        for (let row of listOfProductsInDish) {
+            let productName = row.getElementsByClassName('product')[0].value;
+            let weight = row.getElementsByClassName('weight')[0].value;
+            let product = {
+                productName,
+                weight
+            };
+            if ((product.weight != 0) && (product.productName != "")) {
+                products.push(product);
+            }
+    }
+
+        $.ajax({
+            url: '@Url.Action("AddDishh", "Dish")',
+            type: "POST",
+            data: {
+                dishName: dishName, products: products
+            },
+
+            success: function (result) {
+                //alert("Posiłek dodany");
+              //  $(".alert").show();
+
+                var url = '@Url.Action("Confirmation", "Home", new {name ="danie.", table = "listy dań", controler = "Dish", method = "NavigationOfDishes"  })';
+                window.location.href = url;
+                },
+
+
+                error: function (request, status, error) {
+
+                    var hiddenBox = $(".alert");
+                        hiddenBox.show();
+
+            },
+        });
+
+      $(".closebtn").click(function () {
+          var hiddenBox = $(".alert");
+          hiddenBox.hide();
+        });
+    }
+</script>

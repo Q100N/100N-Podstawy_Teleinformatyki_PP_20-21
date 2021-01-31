@@ -1,0 +1,70 @@
+﻿@model List<ProductViewModel>
+
+<style>
+    .table td {
+        vertical-align: middle;
+    }
+</style>
+@{
+    int i = 1;
+    ViewData["Title"] = "Lista produktów";
+}
+@*<div>
+        @Html.ActionLink("<- Powrót do głównego Menu","Index", "Home")
+
+    </div>*@
+<a casp-area="" class="btn btn-secondary" asp-controller="Home" asp-action="Index"> <- Powrót do głównego Menu </a>
+<br />
+<br />
+<h4>Produkty</h4>
+<hr />
+<a asp-controller="Product" asp-action="AddProduct" class="btn btn-success">Dodaj Produkt</a>
+
+<form asp-controller="Product" asp-action="NavigationOfProducts">
+    <input type="text" name="FilterString" />
+    <button type="submit" class="btn btn-success">Filtr</button>
+</form>
+<br />
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+                    Kcal na 100g/ml
+                </th>
+                <th scope="col">
+                    Jednostka
+                </th>
+                <th scope="col">
+                    Kategoria
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.OrderBy(i => i.Name))
+            {
+                <tr>
+                    @*<th scope="row">@product.Id</th>*@
+                    <td scope="row">@i</td>
+                    <td>@product.Name</td>
+                    <td>@product.Kcal</td>
+                    <td>@product.Unit</td>
+                    <td>@product.Category</td>
+                    <td>
+                        <a casp-area="" class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-productId="@product.Id">Usuń</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

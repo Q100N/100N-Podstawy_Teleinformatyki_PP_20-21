@@ -1,0 +1,52 @@
+﻿@model List<DayViewModel>
+
+
+@{
+
+    int i = 1;
+    ViewData["Title"] = "Lista dni dietetycznych";
+}
+<a casp-area="" class="btn btn-secondary" asp-controller="Home" asp-action="Index"> <- Powrót do głównego Menu </a>
+<br />
+<br />
+<h4>Dni dietetyczne</h4>
+<hr />
+<a asp-controller="Day" asp-action="AddDay" class="btn btn-success">Dodaj dzień diety</a>
+
+<form asp-controller="Day" asp-action="NavigationOfDays">
+    <input type="text" name="FilterString" />
+    <button type="submit" class="btn btn-success">Filtr</button>
+</form>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var day in Model)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@day.Name</td>
+                    <td>
+                        <a casp-area="" class="btn btn-primary" asp-controller="Day" asp-action="ListOfMealsInDay" asp-route-dayId="@day.Id">Szczegóły</a>
+                        <a casp-area="" class="btn btn-danger" asp-controller="Day" asp-action="Delete" asp-route-dayId="@day.Id">Usuń</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,41 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietaApp", "DietaApp\DietaApp.csproj", "{41503450-5FC3-4439-8D2C-8D3104FA6D83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietaApp.Core", "DietaApp.Core\DietaApp.Core.csproj", "{BD658AC2-FBAB-40B0-8404-4ADDD628C83F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietaApp.Database", "DietaApp.Database\DietaApp.Database.csproj", "{83B70DA8-E1BE-4E97-B16B-873870F18E18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41503450-5FC3-4439-8D2C-8D3104FA6D83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41503450-5FC3-4439-8D2C-8D3104FA6D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41503450-5FC3-4439-8D2C-8D3104FA6D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41503450-5FC3-4439-8D2C-8D3104FA6D83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD658AC2-FBAB-40B0-8404-4ADDD628C83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD658AC2-FBAB-40B0-8404-4ADDD628C83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD658AC2-FBAB-40B0-8404-4ADDD628C83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD658AC2-FBAB-40B0-8404-4ADDD628C83F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83B70DA8-E1BE-4E97-B16B-873870F18E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B70DA8-E1BE-4E97-B16B-873870F18E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B70DA8-E1BE-4E97-B16B-873870F18E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B70DA8-E1BE-4E97-B16B-873870F18E18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.StandardHeader = $2
+		$0.VersionControlPolicy = $3
+		$0.TextStylePolicy = $4
+		$4.inheritsSet = null
+		$4.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $5
+		$5.scope = text/x-csharp
+	EndGlobalSection
+EndGlobal

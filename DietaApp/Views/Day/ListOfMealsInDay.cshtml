@@ -1,0 +1,44 @@
+﻿@model DayViewModel
+
+
+@{
+    var i = 1;
+    ViewData["Title"] = "Lista dni diety";
+}
+<a casp-area="" class="btn btn-secondary" asp-controller="Day" asp-action="NavigationOfDays"> <- Powrót do listy dni </a>
+<br />
+<br />
+<p class="lead"> Nazwa dnia: <strong>@Model.Name</strong></p>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var day in Model.mealsInDay)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@day.Meal.Name</td>
+                    @*<td>@day.Meal.</td>*@
+                <td>
+                    <a casp-area="" class="btn btn-primary" asp-controller="Meal" asp-action="ListOfDishesInMeal" asp-route-mealId="@day.MealId">Szczegóły</a>
+                </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

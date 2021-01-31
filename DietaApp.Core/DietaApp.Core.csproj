@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\DietaApp.Core\bin\Debug</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_1;</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <PlatformTarget>anycpu</PlatformTarget>
+    <Optimize>true</Optimize>
+    <Optimize>true</Optimize>
+    <IntermediateOutputPath></IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mapper\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Dtos\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DietaApp.Database\DietaApp.Database.csproj" />
+  </ItemGroup>
+</Project>

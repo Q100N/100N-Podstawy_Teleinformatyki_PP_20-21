@@ -1,0 +1,41 @@
+﻿@model ShoppingListViewModel
+
+
+@{
+    var i = 1;
+    ViewData["Title"] = "Dni w Liscie zakupow";
+}
+<a casp-area="" class="btn btn-secondary" asp-controller="ShoppingList" asp-action="NavigationOfShoppingList"> <- Powrót do list zakupowych </a>
+<br />
+<br />
+<p class="lead"> Nazwa Listy zakupów: <strong>@Model.Name</strong></p>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var shoppingList in Model.DaysInShoppingList)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@shoppingList.Day.Name</td>
+                    @*<td>@day.Meal.</td>*@
+                    <td>
+                        <a casp-area="" class="btn btn-primary" asp-controller="Day" asp-action="DaysInShoppingList" asp-route-mealId="@shoppingList.Id">Szczegóły</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

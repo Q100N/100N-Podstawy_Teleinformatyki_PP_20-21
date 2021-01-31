@@ -1,0 +1,395 @@
+﻿
+@model DietaApp.ShoppingListViewModel
+
+@{
+    List<ShoppingListViewModel> listTest = new List<ShoppingListViewModel> { };
+
+    ShoppingListViewModel categoriesFruits = new ShoppingListViewModel { };
+    ShoppingListViewModel categoriesDairys = new ShoppingListViewModel { };
+    ShoppingListViewModel categoriesMeats = new ShoppingListViewModel { };
+    ShoppingListViewModel categoriesGrainProducts= new ShoppingListViewModel { };
+    ShoppingListViewModel categoriesDrinks = new ShoppingListViewModel { };
+    ShoppingListViewModel categoriesFrozenFoods= new ShoppingListViewModel { };
+    ShoppingListViewModel categoriesBakings = new ShoppingListViewModel { };
+    List<KeyValuePair<string,string>> categoriesList = new List<KeyValuePair<string, string>> { };
+
+    var categories = Model.categoryProduct;
+
+    @for (int i = 0; i < categories.Count(); i++)
+    { 
+        var current = Model.categoryProduct.ToList()[i];
+        if (current.Value == "Owoce" || current.Value == "Warzywa")
+        {
+            categoriesFruits.categoryProduct.Add(current.Key, current.Value);
+        } else if(current.Value == "Nabiał")
+        {
+            categoriesDairys.categoryProduct.Add(current.Key, current.Value);
+        }
+        else if (current.Value == "Mięso")
+        {
+            categoriesMeats.categoryProduct.Add(current.Key, current.Value);
+        }
+        else if (current.Value == "ProdyktyZbozowe")
+        {
+            categoriesGrainProducts.categoryProduct.Add(current.Key, current.Value);
+        }
+        else if (current.Value == "Napoje")
+        {
+            categoriesDrinks.categoryProduct.Add(current.Key, current.Value);
+        }
+        else if (current.Value == "Mrożonki")
+        {
+            categoriesFrozenFoods.categoryProduct.Add(current.Key, current.Value);
+        }
+        else if (current.Value == "Pieczywo")
+        {
+            categoriesBakings.categoryProduct.Add(current.Key, current.Value);
+        }
+
+    }
+    var catFruits = categoriesFruits.categoryProduct.ToList();
+    var catDairy = categoriesDairys.categoryProduct.ToList();
+    var catMeats = categoriesMeats.categoryProduct.ToList();
+    var catGrainProducts = categoriesGrainProducts.categoryProduct.ToList();
+    var catDrinks = categoriesDrinks.categoryProduct.ToList();
+    var catFrozenFoods = categoriesFrozenFoods.categoryProduct.ToList();
+    var catBakings = categoriesBakings.categoryProduct.ToList();
+
+
+    ViewData["Title"] = "Lista zakupów";
+    }
+<style>
+h1{
+    text-align:left;
+
+}
+    th:nth-child(1) {
+        width: 10%;
+    }
+    th:nth-child(2) {
+        width: 40%;
+    }
+    th:nth-child(3) {
+        width: 40%;
+    }
+</style>
+<a casp-area="" class="btn btn-secondary" asp-controller="ShoppingList" asp-action="NavigationOfShoppingList"> <- Powrót do list zakupów </a>
+<br />
+<br />
+
+
+<div class="text-center">
+    @*@catValue*@
+    @if (catFruits.Count() > 0)
+    {
+        <h1>Owoce i Warzywa</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        Nazwa
+                    </th>
+                    <th>
+                        Waga/Pojemność
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in catFruits.OrderBy(i => i.Value))
+                {
+                    @foreach (var i in Model.sumWeightProduct.OrderBy(i => i.Key))
+                    {
+                        if (cat.Key == i.Key)
+                        {
+                            <tr>
+
+                                <td>
+                                    <input type="checkbox" onclick="myFunction()" value="CrossOut" id="kupione">
+                                </td>
+                                <td>@i.Key</td>
+                                <td>@i.Value</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+
+    }
+</div>
+<div class="text-center">
+    @if (catDairy.Count() > 0)
+    {
+        <h1>  Nabiał </h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+
+                    </th>
+                    <th scope="col">
+                        Nazwa
+                    </th>
+
+                    <th scope="col">
+                        Waga/Pojemność
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in catDairy)
+                {
+                    @foreach (var i in Model.sumWeightProduct)
+                    {
+                        if (cat.Key == i.Key)
+                        {
+                            <tr>
+
+                                <td>
+                                    <input type="checkbox" onclick="myFunction()" value="CrossOut" id="kupione">
+                                </td>
+                                <td>@i.Key</td>
+                                <td>@i.Value</td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    }
+
+</div>
+<div class="text-center">
+    @if (catMeats.Count() > 0)
+    {
+        <h1>  Mięso </h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+
+                    </th>
+                    <th scope="col">
+                        Nazwa
+                    </th>
+                    <th scope="col">
+                        Waga/Pojemność
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in catMeats)
+                {
+                    @foreach (var i in Model.sumWeightProduct)
+                    {
+                        if (cat.Key == i.Key)
+                        {
+                            <tr>
+
+                                <td>
+                                    <input type="checkbox" onclick="myFunction()" value="CrossOut" id="kupione">
+                                </td>
+                                <td>@i.Key</td>
+                                <td>@i.Value</td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    }
+
+</div>
+<div class="text-center">
+    @if (catGrainProducts.Count() > 0)
+    {
+        <h1>  Produkty Zbożowe </h1>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">
+
+                    </th>
+                    <th scope="col">
+                        Nazwa
+                    </th>
+
+                    <th scope="col">
+                        Waga/Pojemność
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in catGrainProducts)
+                {
+                    @foreach (var i in Model.sumWeightProduct)
+                    {
+                        if (cat.Key == i.Key)
+                        {
+                            <tr>
+
+                                <td>
+                                    <input type="checkbox" onclick="myFunction()" value="CrossOut" id="kupione">
+                                </td>
+                                <td>@i.Key</td>
+                                <td>@i.Value</td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    }
+
+</div>
+<div class="text-center">
+    @if (catDrinks.Count() > 0)
+    {
+        <h1>  Napoje </h1>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">
+
+                    </th>
+                    <th scope="col">
+                        Nazwa
+                    </th>
+
+                    <th scope="col">
+                        Waga/Pojemność
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in catDrinks)
+                {
+                    @foreach (var i in Model.sumWeightProduct)
+                    {
+                        if (cat.Key == i.Key)
+                        {
+                            <tr>
+
+                                <td>
+                                    <input type="checkbox" onclick="myFunction()" value="CrossOut" id="kupione">
+                                </td>
+                                <td>@i.Key</td>
+                                <td>@i.Value</td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    }
+
+</div>
+<div class="text-center">
+    @if (catFrozenFoods.Count() > 0)
+    {
+        <h1>  Mrożonki </h1>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">
+
+                    </th>
+                    <th scope="col">
+                        Nazwa
+                    </th>
+
+                    <th scope="col">
+                        Waga/Pojemność
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in catFrozenFoods)
+                {
+                    @foreach (var i in Model.sumWeightProduct)
+                    {
+                        if (cat.Key == i.Key)
+                        {
+                            <tr>
+
+                                <td>
+                                    <input type="checkbox" onclick="myFunction()" value="CrossOut" id="kupione">
+                                </td>
+                                <td>@i.Key</td>
+                                <td>@i.Value</td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    }
+</div>
+    <div class="text-center">
+        @if (catBakings.Count() > 0)
+        {
+            <h1>  Pieczywo </h1>
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th scope="col">
+
+                        </th>
+                        <th scope="col">
+                            Nazwa
+                        </th>
+
+                        <th scope="col">
+                            Waga/Pojemność
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cat in catBakings)
+                    {
+                        @foreach (var i in Model.sumWeightProduct)
+                        {
+                            if (cat.Key == i.Key)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <input type="checkbox" onclick="myFunction()" value="CrossOut" id="kupione">
+                                    </td>
+                                    <td>@i.Key</td>
+                                    <td>@i.Value</td>
+
+                                </tr>
+                            }
+                        }
+                    }
+
+                </tbody>
+            </table>
+        }
+  
+    </div>
+
+

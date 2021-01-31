@@ -1,0 +1,55 @@
+﻿@model MealViewModel
+
+
+@{
+    var i = 1;
+    ViewData["Title"] = "Lista dań";
+}
+<a casp-area="" class="btn btn-secondary" asp-controller="Meal" asp-action="NavigationOfMeals"> <- Powrót do listy posiłków </a>
+<br />
+<br />
+
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+                    Kcal na 100g/ml
+                </th>
+                <th scope="col">
+                    Jednostka
+                </th>
+                <th scope="col">
+                    Kategoria
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int j=0;j<Model.getCategory.Count();j++ )
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@Model.getName[j]</td>
+                    <td>@Model.getKcal[j]</td>
+                    <td>@Model.getUnit[j]</td>
+                    <td>@Model.getCategory[j]</td>
+ 
+
+                    <td>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

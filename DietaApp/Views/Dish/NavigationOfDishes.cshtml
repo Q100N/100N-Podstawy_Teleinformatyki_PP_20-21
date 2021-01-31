@@ -1,0 +1,70 @@
+﻿
+@model DishViewModel
+@*@model List<MealViewModel>
+*@
+
+@{
+    int counter = 1;
+    int dishId = 0;
+    ViewData["Title"] = "Lista dań";
+    Model.sumKcalInDish.OrderBy(i => i.Key);
+}
+
+<a casp-area="" class="btn btn-secondary" asp-controller="Home" asp-action="Index"> <- Powrót do głównego Menu </a>
+<br />
+<br />
+<h4>Dania</h4>
+<hr />
+
+<a asp-controller="Dish" asp-action="AddDish" class="btn btn-success">Dodaj danie</a>
+<form asp-controller="Dish" asp-action="NavigationOfDishes">
+
+    <input type="text" name="FilterString" />
+    <button type="submit" class="btn btn-success">Filtr</button>
+</form>
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+                    kcal
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.sumKcalInDish.Count(); i++)
+            {
+                var item = @Model.sumKcalInDish.ElementAt(i);
+                var j = 0;
+                <tr>
+                    <td scope="row">@counter</td>
+                    <td>@item.Key</td>
+                    <th scope="row">@item.Value</th>
+                    <td>
+                        @if (j < 1 && @Model.IdOfDish.ElementAt(i).Key != null)
+                        {
+                            @for (int g = 0; g < j + 1; g++)
+                            {
+                                var valueItem = @Model.IdOfDish.ElementAt(i);
+                                <a casp-area="" class="btn btn-primary" asp-controller="Dish" asp-action="ListOfProductsInDish" asp-route-dishId=" @valueItem.Value">Szczegóły</a>
+                                dishId = @valueItem.Value;
+                                <a casp-area="" class="btn btn-danger" asp-controller="Dish" asp-action="DeleteDish" asp-route-dishId=@dishId>Usuń</a>
+                                g++;
+                            }
+                        }
+                    </td>
+                </tr>
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>

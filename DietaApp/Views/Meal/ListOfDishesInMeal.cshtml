@@ -1,0 +1,71 @@
+﻿@model MealViewModel
+
+
+@{
+    var counter = 1;
+    ViewData["Title"] = "Lista dni diety";
+}
+<a casp-area="" class="btn btn-secondary" asp-controller="meal" asp-action="NavigationOfMeals"> <- Powrót do listy posiłków </a>
+<br />
+<br />
+<p class="lead"> Nazwa posiłku: <strong>@Model.Name</strong></p>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    Nazwa
+                </th>
+                <th scope="col">
+                    Kcal
+                </th>
+                <th scope="col">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model._sumKcalInlDish.Count(); i++)
+            {
+                var item = @Model._IdOfDishes.ElementAt(i);
+                var sum = @Model._sumKcalInlDish.ElementAt(i);
+                var dishId = @Model._dishIndex.ElementAt(i);
+                var j = 0;
+            <tr>
+                <td>@counter</td>
+                <td>@item.Value</td>
+                <th scope="row">@sum.Value</th>
+                <td>
+                    @*@if (j < 1 && @Model.IdOfMeal.ElementAt(i).Key != null)
+                    {
+                        @for (int g = 0; g < j + 1; g++)
+                        {*@
+                            <a casp-area="" class="btn btn-primary" asp-controller="Dish" asp-action="ListOfProductsInDish" asp-route-dishId=" @dishId.Value">Szczegóły</a>
+                            @*g++;
+                        }
+                    }*@
+                </td>
+
+            </tr>
+                counter++;
+            }
+        </tbody>
+        @*<tbody>
+
+            @foreach (var meal in Model.dishesInMeal)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@meal.Dish.Name</td>
+                    <td>
+                        <a casp-area="" class="btn btn-primary" asp-controller="Dish" asp-action="ListOfProductsInDish" asp-route-dishId="@meal.DishId">Szczegóły</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>*@
+    </table>
+</div>
